@@ -1,5 +1,5 @@
 ﻿#!/usr/bin/env bash
-source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
+source <(curl -fsSL https://raw.githubusercontent.com/bryanstern/ProxmoxVE/refs/heads/ollama-ipex-llm/misc/build.func)
 # Copyright (c) 2021-2025 tteck
 # Author: havardthom | Co-Author: MickLesk (CanbiZ)
 # License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
@@ -26,7 +26,7 @@ function update_script() {
     msg_error "No Ollama Installation Found!"
     exit
   fi
-  RELEASE=$(curl -fsSL https://api.github.com/repos/ollama/ollama/releases/latest | grep "tag_name" | awk -F '"' '{print $4}')
+  RELEASE=$(curl -fsSL https://api.github.com/repos/ipex-llm/ipex-llm/releases/latest | grep "tag_name" | awk -F '"' '{print $4}')
   if [[ ! -f /opt/Ollama_version.txt ]] || [[ "${RELEASE}" != "$(cat /opt/Ollama_version.txt)" ]]; then
     if [[ ! -f /opt/Ollama_version.txt ]]; then
       touch /opt/Ollama_version.txt
@@ -36,7 +36,7 @@ function update_script() {
     msg_ok "Services Stopped"
 
     TMP_TAR=$(mktemp --suffix=.tgz)
-    curl -fL# -C - -o "${TMP_TAR}" "https://github.com/ollama/ollama/releases/download/${RELEASE}/ollama-linux-amd64.tgz"
+    curl -fL# -C - -o "${TMP_TAR}" "https://github.com/ipex-llm/ipex-llm/releases/download/${RELEASE}/ollama-ipex-llm-${RELEASE}-ubuntu.tgz"
     msg_info "Updating Ollama to ${RELEASE}"
     rm -rf /usr/local/lib/ollama
     rm -rf /usr/local/bin/ollama
